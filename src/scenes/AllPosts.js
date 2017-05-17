@@ -10,10 +10,12 @@ import { connect } from 'react-redux';
 import { getItems } from '../actions';
 import { ItemListView } from '../components';
 
-class Feed extends Component {
+class AllPosts extends Component {
     constructor(props) {
         super(props);
+    }
 
+    componentWillMount() {
         this.props.dispatch(getItems());
     }
 
@@ -47,7 +49,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 }
 
-export default connect(mapStateToProps)(Feed);
+export default connect(mapStateToProps)(AllPosts);
 
 const styles = StyleSheet.create({
     container: {

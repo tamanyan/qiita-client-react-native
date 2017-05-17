@@ -21,13 +21,13 @@ export class ItemListView extends Component {
 
     renderItem(item) {
         return (
-            <TouchableHighlight onPress={() => this.props.onItemDidSelect(item.kijiId)}>
+            <TouchableHighlight onPress={() => this.props.onItemDidSelect(item.id)}>
                 <View style={styles.container}>
                     <View style={styles.leftContainer}>
                         <Text style={styles.title}>{item.title}</Text>
                         <View style={styles.tagContainer}>
-                            {item.tags.map(tag => {
-                                return <Text style={styles.tag}>{tag}</Text>
+                            {item.tags.map((tag, i) => {
+                                return <Text key={`${item.id}_${i}`} style={styles.tag}>{tag}</Text>
                             })}
                         </View>
                         <Text style={styles.time}>{item.time}</Text>
@@ -57,13 +57,11 @@ export class ItemListView extends Component {
                     />
                 }
                 enableEmptySections={true}
-                keyExtractor={(item, index) => item.id }
+                keyExtractor={(item, index) => { return item.id }}
                 data={this.props.items}
-                renderItem={
-                    (data) => {
-                        return this.renderItem(data.item);
-                    }
-                }
+                renderItem={ data => {
+                    return this.renderItem(data.item);
+                }}
                 style={styles.listView}
             />
         );

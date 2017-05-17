@@ -13,7 +13,8 @@ import {
 } from 'react-native';
 import { connect, Provider } from 'react-redux';
 import React, { Component } from 'react';
-import Feed from './scenes/Feed';
+import AllPosts from './scenes/AllPosts';
+import Profile from './scenes/Profile';
 import TabIcon from './components/TabIcon';
 import store from './store';
 
@@ -65,8 +66,8 @@ export default class App extends Component {
                                 tabBarStyle={styles.tabBarStyle}
                                 tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}
                             >
-                                <Scene key="feed" component={Feed} title="Feed" initial icon={TabIcon} />
-                                <Scene key="profile" component={Feed} title="Profile" icon={TabIcon} />
+                                <Scene key="allPosts" component={AllPosts} title="すべての投稿" initial icon={TabIcon} />
+                                <Scene key="profile" component={Profile} title="プロフィール" icon={TabIcon} />
                             </Scene>
                         </Scene>
                     </Scene>
