@@ -12,13 +12,19 @@ const logger = createLogger({
 });
 
 const configureStore = () => {
-    const enhancer = compose(
-        applyMiddleware(thunk, logger)
-    );
-
-    const store = createStore(reducers, enhancer);
-
-    return store;
+    if (__DEV__) {
+        const enhancer = compose(
+            applyMiddleware(thunk, logger)
+        );
+        const store = createStore(reducers, enhancer);
+        return store;
+    } else {
+        const enhancer = compose(
+            applyMiddleware(thunk)
+        );
+        const store = createStore(reducers, enhancer);
+        return store;
+    }
 }
 
 const store = configureStore();

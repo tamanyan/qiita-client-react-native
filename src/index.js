@@ -31,6 +31,9 @@ const styles = StyleSheet.create({
     tabBarSelectedItemStyle: {
         backgroundColor: '#eee',
     },
+    titleStyle: {
+        fontWeight: "bold"
+    }
 });
 
 const RouterWithRedux = connect()(Router);
@@ -66,8 +69,8 @@ export default class App extends Component {
                                 tabBarStyle={styles.tabBarStyle}
                                 tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}
                             >
-                                <Scene key="allPosts" component={AllPosts} title="すべての投稿" initial icon={TabIcon} />
-                                <Scene key="profile" component={Profile} title="プロフィール" icon={TabIcon} />
+                                <Scene key="allPosts" component={AllPosts} title="すべての投稿" titleStyle={styles.titleStyle} initial icon={TabIcon} />
+                                <Scene key="profile" component={Profile} title="プロフィール" titleStyle={styles.titleStyle} icon={TabIcon} />
                             </Scene>
                         </Scene>
                     </Scene>
