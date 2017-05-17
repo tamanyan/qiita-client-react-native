@@ -1,0 +1,16 @@
+{
+    "end_with_newline": true,
+    "indent_size": 4,
+    "jsx": {
+        "alignWithFirstAttribute": false,
+        "bracepadding": false,
+        "braces": "knr",
+        "spaceclose": true,
+        "methodchain": "chain",
+        "objsort": "all",
+        "formatObject": "indent",
+        "ternaryline": true,
+        "wrap": 100
+	}
+}
+
