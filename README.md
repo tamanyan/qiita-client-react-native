@@ -15,6 +15,12 @@ Features
 npm install
 ```
 
+or
+
+```
+yarn
+```
+
 ### Run on ios
 
 ```
