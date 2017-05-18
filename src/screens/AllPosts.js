@@ -29,12 +29,17 @@ class AllPosts extends Component {
         this.props.dispatch(getItems());
     }
 
+    onEndReached() {
+        this.props.dispatch(getItems());
+    }
+
     render() {
         return (
             <ItemListView
                 items={this.props.items}
                 onRefresh={() => this.onRefresh()}
                 onItemDidSelect={(id) => this.onItemDidSelect(id)}
+                onEndReached={() => this.onEndReached()}
              />
         );
   }

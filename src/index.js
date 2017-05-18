@@ -25,7 +25,7 @@ Navigation.startTabBasedApp({
             title: 'プロフィール'
         },
     ],
-    tabsStyle: { // optional, add this if you want to style the tab bar beyond the defaults
+    tabsStyle: {
         tabBarSelectedButtonColor: '#5BB12D',
     },
     appStyle: {

@@ -1,6 +1,6 @@
 'use strict';
 
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
     Text,
     View,
@@ -14,11 +14,25 @@ import {
 } from 'react-native';
 
 export class ItemListView extends Component {
+    static defaultProps = {
+        onItemDidSelect: (id) => {},
+        onRefresh: () => { console.log('refresh') },
+        onEndReached: (next) => {},
+    }
+
+    static propTypes = {
+        items: PropTypes.array.isRequired,
+        onItemDidSelect: PropTypes.func,
+        onRefresh: PropTypes.func,
+        onEndReached: PropTypes.func,
+    }
+
+    state = {
+        refreshing: false
+    }
+
     constructor(props) {
         super(props);
-        this.state = {
-            refreshing: false
-        };
     }
 
     renderItem(item) {
@@ -59,11 +73,12 @@ export class ItemListView extends Component {
                     />
                 }
                 enableEmptySections={true}
-                keyExtractor={(item, index) => { return item.id }}
+                keyExtractor={(item, index) => { return `${item.id}_${index}`; }}
                 data={this.props.items}
                 renderItem={ data => {
                     return this.renderItem(data.item);
                 }}
+                onEndReached={() => this.props.onEndReached('next')}
                 style={styles.listView}
             />
         );
