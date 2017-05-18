@@ -1,3 +1,5 @@
+'use strict';
+
 import * as types from '../types';
 import Item from '../models/Item';
 import itemData from '../mocks/items.json';

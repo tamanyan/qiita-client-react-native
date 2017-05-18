@@ -1,3 +1,5 @@
+'use strict';
+
 import { Record, Map } from 'immutable';
 import User from './User';
 import moment from 'moment';

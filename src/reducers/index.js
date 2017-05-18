@@ -1,3 +1,5 @@
+'use strict';
+
 import { combineReducers } from 'redux';
 import routes from './routes';
 import items from './items';

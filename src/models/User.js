@@ -1,3 +1,5 @@
+'use strict';
+
 import { Record } from 'immutable';
 
 const UserRecord = Record({
