@@ -2,8 +2,8 @@
 
 import { Navigation } from 'react-native-navigation';
 import { Provider } from 'react-redux';
+import { QIITA_COLOR } from './appearance';
 import store from './store';
-// screen related book keeping
 import registerScreens from './screens';
 registerScreens(store, Provider);
 
@@ -26,7 +26,7 @@ Navigation.startTabBasedApp({
         },
     ],
     tabsStyle: {
-        tabBarSelectedButtonColor: '#5BB12D',
+        tabBarSelectedButtonColor: QIITA_COLOR,
     },
     appStyle: {
         orientation: 'portrait',

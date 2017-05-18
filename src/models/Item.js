@@ -24,13 +24,13 @@ export default class Item extends ItemRecord {
 
         const time = (() => {
             if (diffSeconds < 60) {
-                return `${diffSeconds}秒前`;
+                return `${diffSeconds}s`;
             } else if (diffMinutes < 60) {
-                return `${diffMinutes}分前`;
+                return `${diffMinutes}m`;
             } else if (diffHours < 24) {
-                return `${diffHours}時間前`;
+                return `${diffHours}h`;
             } else if (diffDays < 7) {
-                return `${diffDays}日前`;
+                return `${diffDays}d`;
             } else {
                 return createAtMoment.format('YYYY/MM/DD HH:mm:ss');
             }

@@ -13,6 +13,19 @@
 #import <React/RCTRootView.h>
 #import "RCCManager.h"
 
+@implementation UIColor (Hex)
++ (id)colorWithHexString:(NSString *)hex alpha:(CGFloat)a {
+  NSScanner *colorScanner = [NSScanner scannerWithString:hex];
+  unsigned int color;
+  if (![colorScanner scanHexInt:&color]) return nil;
+  CGFloat r = ((color & 0xFF0000) >> 16)/255.0f;
+  CGFloat g = ((color & 0x00FF00) >> 8) /255.0f;
+  CGFloat b =  (color & 0x0000FF) /255.0f;
+  //NSLog(@"HEX to RGB >> r:%f g:%f b:%f a:%f\n",r,g,b,a);
+  return [UIColor colorWithRed:r green:g blue:b alpha:a];
+}
+@end
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -20,19 +33,20 @@
   NSURL *jsCodeLocation;
 
 #ifdef DEBUG
-  
+
 #if TARGET_IPHONE_SIMULATOR
   //  jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
 #else
   jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 #endif
-  
+
 #else
   jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 #endif
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+  self.window.tintColor = [UIColor colorWithHexString:@"5BB12D" alpha:1.0f];
   self.window.backgroundColor = [UIColor whiteColor];
   [[RCCManager sharedInstance] initBridgeWithBundleURL:jsCodeLocation];
 

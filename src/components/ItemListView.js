@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 import Item from '../models/Item';
 import LoadingItem from '../models/LoadingItem';
+import { MAIN_TEXT_COLOR, SUB_TEXT_COLOR } from '../appearance';
 
 
 export class ItemListView extends Component {
@@ -40,25 +41,31 @@ export class ItemListView extends Component {
         super(props);
     }
 
-    renderItem(item) {
+    renderItem(index, item) {
         return (
-            <TouchableHighlight onPress={() => this.props.onItemDidSelect(item.id)}>
+            <TouchableHighlight onPress={() => this.props.onItemDidSelect(index, item)}>
                 <View style={styles.container}>
                     <View style={styles.leftContainer}>
+                        <Image
+                            source={{uri: item.user.profileImageUrl}}
+                            style={styles.thumbnail}/>
+                    </View>
+                    <View style={styles.rightContainer}>
+                        <View style={styles.userNameContainer}>
+                            {(() => {
+                                if (item.user.name.length > 0)
+                                    return <Text style={styles.userName}>{item.user.name}</Text>;
+                            })()}
+                            <Text style={styles.userId}>@{item.user.id}</Text>
+                            <Text style={styles.time}>{item.time}</Text>
+                        </View>
                         <Text style={styles.title}>{item.title}</Text>
                         <View style={styles.tagContainer}>
                             {item.tags.map((tag, i) => {
                                 return <Text key={`${item.id}_${i}`} style={styles.tag}>{tag}</Text>
                             })}
                         </View>
-                        <Text style={styles.time}>{item.time}</Text>
                     </View>
-                    {(() => {
-                        if (item.user !== null)
-                            return <Image
-                                source={{uri: item.user.profileImageUrl}}
-                                style={styles.thumbnail}/>
-                    })()}
                 </View>
             </TouchableHighlight>
         );
@@ -92,7 +99,7 @@ export class ItemListView extends Component {
                 data={this.props.items}
                 renderItem={ data => {
                     if (data.item instanceof Item) {
-                        return this.renderItem(data.item);
+                        return this.renderItem(data.index, data.item);
                     } else if (data.item instanceof LoadingItem) {
                         return this.renderLoadingItem(data.item);
                     }
@@ -105,14 +112,10 @@ export class ItemListView extends Component {
 }
 
 const styles = StyleSheet.create({
-    navigator: {
-        flex: 1
-    },
     container: {
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
+        justifyContent: 'flex-start',
         backgroundColor: '#FFFFFF',
         borderBottomWidth: 1,
         borderBottomColor: '#E0E0E0',
@@ -120,32 +123,57 @@ const styles = StyleSheet.create({
         paddingBottom: 12,
     },
     leftContainer: {
-        flex: 1,
         marginLeft: 15,
         marginRight: 10,
     },
+    thumbnail: {
+        width: 60,
+        height: 60,
+        borderRadius: 3,
+    },
+    rightContainer: {
+        flex: 1,
+        marginRight: 15,
+    },
+    userNameContainer: {
+        flex: 1,
+        flexDirection: 'row',
+    },
+    userName: {
+        fontSize: 13,
+        color: MAIN_TEXT_COLOR,
+        fontWeight: 'bold',
+        marginRight: 5
+    },
+    userId: {
+        fontSize: 11,
+        color: SUB_TEXT_COLOR,
+        marginRight: 5
+    },
     title: {
-        fontSize: 15,
+        fontSize: 14,
+        color: MAIN_TEXT_COLOR,
         fontWeight: 'bold',
         textAlign: 'left',
-        lineHeight: 20,
+        lineHeight: 18,
+        marginTop: 3
     },
     tagContainer: {
         flex: 1,
         flexDirection: 'row',
         flexWrap: 'wrap',
-        marginTop: 5,
+        justifyContent: 'flex-start',
+        marginTop: 10,
     },
     tag: {
-        marginTop: 5,
-        fontSize: 10,
+        fontSize: 9,
+        color: MAIN_TEXT_COLOR,
         marginRight: 5,
         paddingTop: 4,
         paddingBottom: 4,
         paddingLeft: 5,
         paddingRight: 5,
         height: 20,
-        color: '#000000',
         backgroundColor: '#E0E0E0',
         textAlign: 'center',
         borderRadius: 5,
@@ -154,18 +182,9 @@ const styles = StyleSheet.create({
         overflow: 'hidden'
     },
     time: {
-        fontSize: 12,
-        marginTop: 10,
+        fontSize: 11,
+        color: SUB_TEXT_COLOR,
         textAlign: 'left',
-        color: '#929292'
-    },
-    thumbnail: {
-        width: 60,
-        height: 60,
-        marginRight: 15,
-        marginTop: 10,
-        marginBottom: 10,
-        borderRadius: 3
     },
     listView: {
         backgroundColor: '#FFFFFF',
