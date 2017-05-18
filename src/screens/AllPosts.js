@@ -18,7 +18,7 @@ class AllPosts extends Component {
     }
 
     componentWillMount() {
-        this.props.dispatch(getItems());
+        this.props.dispatch(getItems(1));
     }
 
     onItemDidSelect(id) {
@@ -26,20 +26,21 @@ class AllPosts extends Component {
     }
 
     onRefresh() {
-        this.props.dispatch(getItems());
+        this.props.dispatch(getItems(1));
     }
 
-    onEndReached() {
-        this.props.dispatch(getItems());
+    onEndReached(nextPage) {
+        this.props.dispatch(getItems(nextPage));
     }
 
     render() {
         return (
             <ItemListView
                 items={this.props.items}
+                page={this.props.page}
                 onRefresh={() => this.onRefresh()}
                 onItemDidSelect={(id) => this.onItemDidSelect(id)}
-                onEndReached={() => this.onEndReached()}
+                onEndReached={(nextPage) => this.onEndReached(nextPage)}
              />
         );
   }
@@ -47,7 +48,8 @@ class AllPosts extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        items: state.items
+        items: state.items.items,
+        page: state.items.page,
     };
 }
 

@@ -10,8 +10,12 @@ import {
     StyleSheet,
     TouchableHighlight,
     FlatList,
-    RefreshControl
+    RefreshControl,
+    ActivityIndicator
 } from 'react-native';
+import Item from '../models/Item';
+import LoadingItem from '../models/LoadingItem';
+
 
 export class ItemListView extends Component {
     static defaultProps = {
@@ -22,6 +26,7 @@ export class ItemListView extends Component {
 
     static propTypes = {
         items: PropTypes.array.isRequired,
+        page: PropTypes.number.isRequired,
         onItemDidSelect: PropTypes.func,
         onRefresh: PropTypes.func,
         onEndReached: PropTypes.func,
@@ -59,6 +64,16 @@ export class ItemListView extends Component {
         );
     }
 
+    renderLoadingItem(item) {
+        return (
+            <ActivityIndicator
+                animating={true}
+                style={styles.loading}
+                size="small"
+            />
+        );
+    }
+
     onRefresh() {
         this.setState({refreshing: true});
     }
@@ -76,9 +91,13 @@ export class ItemListView extends Component {
                 keyExtractor={(item, index) => { return `${item.id}_${index}`; }}
                 data={this.props.items}
                 renderItem={ data => {
-                    return this.renderItem(data.item);
+                    if (data.item instanceof Item) {
+                        return this.renderItem(data.item);
+                    } else if (data.item instanceof LoadingItem) {
+                        return this.renderLoadingItem(data.item);
+                    }
                 }}
-                onEndReached={() => this.props.onEndReached('next')}
+                onEndReached={() => this.props.onEndReached(this.props.page + 1)}
                 style={styles.listView}
             />
         );
@@ -151,4 +170,11 @@ const styles = StyleSheet.create({
     listView: {
         backgroundColor: '#FFFFFF',
     },
+    loading: {
+        alignItems : 'center',
+        justifyContent : 'center',
+        marginTop: 10,
+        padding : 15,
+        height: 30
+    }
 });

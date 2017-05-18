@@ -21,11 +21,21 @@ or
 yarn
 ```
 
-### Run on ios
+### Run on iOS
 
 ```
 react-native run-ios
 ```
+
+## Run on iOS Device
+
+Build bundlejs
+
+```
+react-native bundle --platform ios --dev false --entry-file index.ios.js --bundle-output ios/main.jsbundle
+```
+
+Build app on xcode and install it into your device.
 
 ## Dependencies
 
