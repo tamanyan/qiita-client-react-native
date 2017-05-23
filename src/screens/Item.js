@@ -1,7 +1,6 @@
 'use strict';
 
 import React, { Component, PropTypes } from 'react';
-import { Actions, Scene, Router } from 'react-native-router-flux';
 import {
     WebView,
     Text,

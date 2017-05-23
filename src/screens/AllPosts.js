@@ -1,7 +1,6 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { Actions, Scene, Router } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { getItems } from '../actions';
 import { ItemListView } from '../components';
