@@ -1,4 +1,3 @@
-
 'use strict';
 
 export const MAIN_TEXT_COLOR = '#313131';

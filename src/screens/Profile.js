@@ -8,6 +8,7 @@ import {
     View
 } from 'react-native';
 import { connect } from 'react-redux';
+import Login from './Login';
 // import { getItems } from '../actions';
 // import { ItemListView } from '../components';
 
@@ -22,9 +23,8 @@ class Profile extends Component {
 
     render() {
         return (
-            <View>
-                <Text>Profile</Text>
-            </View>
+            <Login>
+            </Login>
         );
   }
 }

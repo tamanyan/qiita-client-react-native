@@ -15,11 +15,12 @@ export const getItems = (page) => {
         try {
             dispatch(action(types.GET_ITEMS));
 
-            if (false) {
+            if (true) {
                 const payload = {
                     items: itemData.map(item => new Item(item)).concat([new LoadingItem()]),
                     page: page
                 };
+
                 setTimeout(() => {
                     dispatch(action(types.GET_ITEMS_SUCCESSE, payload));
                 }, 0);
@@ -31,6 +32,7 @@ export const getItems = (page) => {
                     items: responseJson.map(item => new Item(item)).concat([new LoadingItem()]),
                     page: page
                 };
+
                 dispatch(action(types.GET_ITEMS_SUCCESSE, payload));
             }
 

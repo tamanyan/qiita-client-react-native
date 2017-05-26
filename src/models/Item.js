@@ -32,7 +32,7 @@ export default class Item extends ItemRecord {
             } else if (diffDays < 7) {
                 return `${diffDays}d`;
             } else {
-                return createAtMoment.format('YYYY/MM/DD HH:mm:ss');
+                return createAtMoment.format('YYYY/MM/DD');
             }
         })();
 
