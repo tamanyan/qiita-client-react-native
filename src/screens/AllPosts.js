@@ -12,6 +12,9 @@ class AllPosts extends Component {
 
     componentWillMount() {
         this.props.dispatch(getItems(1));
+        this.props.navigator.switchToTab({
+            tabIndex: 1
+        });
     }
 
     onItemDidSelect(index, item) {

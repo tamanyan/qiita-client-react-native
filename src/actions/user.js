@@ -16,43 +16,38 @@ export const getAccessToken = (code) => {
         try {
             dispatch(action(types.GET_ACCESS_TOKEN));
 
-            if (false) {
-                const payload = {
-                    token: "8d98bdbc543ea8d503d01ef54060ab8a3895f9bb"
-                };
+            const tokenResponse = await fetch('https://qiita.com/api/v2/access_tokens', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    client_id: constants.CLIENT_ID,
+                    client_secret: constants.CLIENT_SECRET,
+                    code: code,
+                })
+            });
+            const tokenResponseJson = await tokenResponse.json();
+            const token = tokenResponseJson.token
 
-                dispatch(action(types.GET_ACCESS_TOKEN_SUCCESSE, payload));
-            } else {
-                const tokenResponse = await fetch('https://qiita.com/api/v2/access_tokens', {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        client_id: constants.CLIENT_ID,
-                        client_secret: constants.CLIENT_SECRET,
-                        code: code,
-                    })
-                });
-                const tokenResponseJson = await tokenResponse.json();
-                const token = tokenResponseJson.token
+            const userResponse = await fetch('https://qiita.com/api/v2/authenticated_user', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                }
+            });
+            const userResponseJson = await userResponse.json();
 
-                const userResponse = await fetch('https://qiita.com/api/v2/authenticated_user', {
-                    method: 'POST',
-                    headers: {
-                        'Authorizationt': `Bearer ${token}`,
-                    }
-                });
-                const userResponseJson = await userResponse.json();
+            console.log(token);
+            console.log(userResponseJson);
+            const payload = {
+                token: token,
+                authedUser: new User(userResponseJson)
+            };
 
-                const payload = {
-                    token: token,
-                    authedUser: new User(userResponseJson)
-                };
-
-                dispatch(action(types.GET_ACCESS_TOKEN_SUCCESSE, payload));
-            }
+            dispatch(action(types.GET_ACCESS_TOKEN_SUCCESSE, payload));
         } catch(error) {
             console.error(error);
         }

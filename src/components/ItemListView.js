@@ -15,8 +15,14 @@ import {
 } from 'react-native';
 import Item from '../models/Item';
 import LoadingItem from '../models/LoadingItem';
-import { MAIN_TEXT_COLOR, SUB_TEXT_COLOR } from '../appearance';
-
+import {
+     MAIN_TEXT_COLOR,
+     SUB_TEXT_COLOR,
+     DEFAULT_PADDING,
+     SMALL_PADDING,
+     SMALL_MARGIN,
+     EXTRA_SMALL_MARGIN,
+} from '../appearance';
 
 export class ItemListView extends Component {
     static defaultProps = {
@@ -119,12 +125,13 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
         borderBottomWidth: 1,
         borderBottomColor: '#E0E0E0',
-        paddingTop: 12,
-        paddingBottom: 12,
+        paddingTop: SMALL_PADDING,
+        paddingBottom: SMALL_PADDING,
+        paddingLeft: DEFAULT_PADDING,
+        paddingRight: DEFAULT_PADDING,
     },
     leftContainer: {
-        marginLeft: 15,
-        marginRight: 10,
+        marginRight: SMALL_MARGIN
     },
     thumbnail: {
         width: 60,
@@ -132,8 +139,7 @@ const styles = StyleSheet.create({
         borderRadius: 3,
     },
     rightContainer: {
-        flex: 1,
-        marginRight: 15,
+        flex: 1
     },
     userNameContainer: {
         flex: 1,
@@ -143,12 +149,12 @@ const styles = StyleSheet.create({
         fontSize: 13,
         color: MAIN_TEXT_COLOR,
         fontWeight: 'bold',
-        marginRight: 5
+        marginRight: EXTRA_SMALL_MARGIN
     },
     userId: {
         fontSize: 11,
         color: SUB_TEXT_COLOR,
-        marginRight: 5
+        marginRight: EXTRA_SMALL_MARGIN
     },
     title: {
         fontSize: 14,
@@ -163,7 +169,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'flex-start',
-        marginTop: 10,
+        marginTop: EXTRA_SMALL_MARGIN,
     },
     tag: {
         fontSize: 9,

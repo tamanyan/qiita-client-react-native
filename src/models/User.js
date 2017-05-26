@@ -10,7 +10,8 @@ const UserRecord = Record({
     followeesCount: 0,
     followersCount: 0,
     itemsCount: 0,
-    organization: ''
+    location: '',
+    organization: '',
 });
 
 export default class User extends UserRecord {
@@ -24,6 +25,7 @@ export default class User extends UserRecord {
             followersCount: user.followers_count,
             itemsCount: user.items_count,
             organization: user.organization,
+            location: user.location,
         });
     }
 }

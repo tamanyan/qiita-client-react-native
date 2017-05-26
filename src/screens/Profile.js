@@ -10,27 +10,46 @@ import {
 import { connect } from 'react-redux';
 import Login from './Login';
 // import { getItems } from '../actions';
-// import { ItemListView } from '../components';
+import { UserProfile } from '../components';
 
 class Profile extends Component {
     constructor(props) {
         super(props);
+
+        this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
     }
 
-    onItemDidSelect(id) {
-        console.log(id);
+    onNavigatorEvent(event) {
+        if (event.id === 'willAppear') {
+            console.log(event);
+            if (this.props.user == undefined) {
+                this.props.navigator.showModal({
+                    screen: "qiita.Login",
+                    title: "ログイン",
+                    passProps: {},
+                    navigatorStyle: {},
+                    animationType: 'slide-up'
+                });
+            }
+        }
     }
 
     render() {
-        return (
-            <Login>
-            </Login>
-        );
+        if (this.props.user == undefined) {
+            return (
+                <Text>You should login</Text>
+            );
+        } else {
+            return (
+                <UserProfile user={this.props.user} />
+            );
+        }
   }
 }
 
 const mapStateToProps = (state) => {
     return {
+        user: state.user.authedUser
     };
 }
 
