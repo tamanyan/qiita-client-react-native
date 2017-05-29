@@ -1,10 +1,10 @@
 'use strict';
 
 import { combineReducers } from 'redux';
-import items from './items';
+import stream from './stream';
 import user from './user';
 
 export default combineReducers({
-    items,
+    stream,
     user
 });

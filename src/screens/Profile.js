@@ -5,12 +5,16 @@ import {
     AppRegistry,
     StyleSheet,
     Text,
-    View
+    View,
+    ScrollView,
+    TouchableHighlight
 } from 'react-native';
 import { connect } from 'react-redux';
 import Login from './Login';
-// import { getItems } from '../actions';
+import Item from '../models/Item';
+import { getAuthedUserItems } from '../actions';
 import { UserProfile } from '../components';
+import { ItemCell } from '../components';
 
 class Profile extends Component {
     constructor(props) {
@@ -30,7 +34,19 @@ class Profile extends Component {
                     animationType: 'slide-up'
                 });
             }
+            if (this.props.user != undefined && this.props.items.length == 0) {
+                this.props.dispatch(getAuthedUserItems());
+            }
         }
+    }
+
+    onItemDidSelect(index, item) {
+        this.props.navigator.push({
+            screen: 'qiita.Item',
+            passProps: {
+                url: item.url
+            }
+        })
     }
 
     render() {
@@ -41,8 +57,22 @@ class Profile extends Component {
                 </View>
             );
         } else {
+            const user = this.props.user;
+            const items = this.props.items;
+
             return (
-                <UserProfile user={this.props.user} />
+                <ScrollView>
+                    <UserProfile user={this.props.user} />
+                    {items.map((item, index) => {
+                        return (
+                            <TouchableHighlight key={`user_touchable_${index}`} onPress={() => this.onItemDidSelect(index, item)}>
+                                <View>
+                                    <ItemCell key={`user_item_${index}`} item={item} />
+                                </View>
+                            </TouchableHighlight>
+                        );
+                    })}
+                </ScrollView>
             );
         }
   }
@@ -50,7 +80,8 @@ class Profile extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        user: state.user.authedUser
+        user: state.user.authedUser,
+        items: state.user.items
     };
 }
 

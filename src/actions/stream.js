@@ -15,7 +15,7 @@ export const getItems = (page) => {
         try {
             dispatch(action(types.GET_ITEMS));
 
-            if (true) {
+            if (false) {
                 const payload = {
                     items: itemData.map(item => new Item(item)).concat([new LoadingItem()]),
                     page: page

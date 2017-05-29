@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import urlParse from 'url-parse';
 import uuid from 'react-native-uuid';
 import * as constants from '../constants';
-import { getAccessToken } from '../actions';
+import { authenticate } from '../actions';
 
 class Login extends Component {
     static navigatorStyle = {
@@ -54,7 +54,7 @@ class Login extends Component {
         const parsedUrl = urlParse(event.url, true);
 
         if (parsedUrl.host == 'qiita.com' && parsedUrl.query.code != undefined && parsedUrl.query.state != undefined) {
-            this.props.dispatch(getAccessToken(parsedUrl.query.code));
+            this.props.dispatch(authenticate(parsedUrl.query.code));
             this.setState({isWebViewHidden: true});
         }
 

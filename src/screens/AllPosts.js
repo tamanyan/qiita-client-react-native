@@ -12,13 +12,9 @@ class AllPosts extends Component {
 
     componentWillMount() {
         this.props.dispatch(getItems(1));
-        this.props.navigator.switchToTab({
-            tabIndex: 1
-        });
     }
 
     onItemDidSelect(index, item) {
-        console.log(index, item);
         this.props.navigator.push({
             screen: 'qiita.Item',
             passProps: {
@@ -50,8 +46,8 @@ class AllPosts extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        items: state.items.items,
-        page: state.items.page,
+        items: state.stream.items,
+        page: state.stream.page,
     };
 }
 

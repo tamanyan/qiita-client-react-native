@@ -2,6 +2,8 @@
 
 import { applyMiddleware, createStore, compose } from 'redux';
 import { createLogger } from 'redux-logger';
+import { persistStore, autoRehydrate } from 'redux-persist';
+import { AsyncStorage } from 'react-native';
 import reducers from './reducers';
 import thunk from 'redux-thunk';
 
@@ -14,13 +16,15 @@ const logger = createLogger({
 const configureStore = () => {
     if (__DEV__) {
         const enhancer = compose(
-            applyMiddleware(thunk, logger)
+            applyMiddleware(thunk, logger),
+            autoRehydrate()
         );
         const store = createStore(reducers, enhancer);
         return store;
     } else {
         const enhancer = compose(
-            applyMiddleware(thunk)
+            applyMiddleware(thunk),
+            autoRehydrate()
         );
         const store = createStore(reducers, enhancer);
         return store;
@@ -28,5 +32,6 @@ const configureStore = () => {
 }
 
 const store = configureStore();
+persistStore(store, {storage: AsyncStorage});
 
 export default store;

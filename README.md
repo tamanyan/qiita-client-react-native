@@ -44,5 +44,7 @@ Build app on xcode and install it into your device.
 - redux-thunk
 - immutable
 - moment
-- react-native-router-flux
+- redux-persist
+- url-parse
+- react-native-navigation
 - etc ...
