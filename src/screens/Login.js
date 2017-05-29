@@ -26,10 +26,6 @@ class Login extends Component {
         ]
     };
 
-    static propTypes = {
-        // url: PropTypes.string.isRequired,
-    }
-
     state = {
         isWebViewHidden: false
     }

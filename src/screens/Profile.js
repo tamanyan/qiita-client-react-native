@@ -21,7 +21,6 @@ class Profile extends Component {
 
     onNavigatorEvent(event) {
         if (event.id === 'willAppear') {
-            console.log(event);
             if (this.props.user == undefined) {
                 this.props.navigator.showModal({
                     screen: "qiita.Login",
@@ -37,7 +36,9 @@ class Profile extends Component {
     render() {
         if (this.props.user == undefined) {
             return (
-                <Text>You should login</Text>
+                <View style={styles.container}>
+                    <Text style={styles.annotation}>You need to login</Text>
+                </View>
             );
         } else {
             return (
@@ -65,16 +66,10 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#F5FCFF',
     },
-    welcome: {
+    annotation: {
         fontSize: 20,
         textAlign: 'center',
         margin: 10,
-    },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5,
-    },
+    }
 });

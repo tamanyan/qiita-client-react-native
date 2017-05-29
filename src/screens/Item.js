@@ -7,8 +7,6 @@ import {
     View
 } from 'react-native';
 import { connect } from 'react-redux';
-import { getItems } from '../actions';
-import { ItemListView } from '../components';
 
 class Item extends Component {
     static navigatorStyle = {

@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getItems } from '../actions';
-import { ItemListView } from '../components';
+import { ItemList } from '../components';
 
 class AllPosts extends Component {
     constructor(props) {
@@ -37,7 +37,7 @@ class AllPosts extends Component {
 
     render() {
         return (
-            <ItemListView
+            <ItemList
                 items={this.props.items}
                 page={this.props.page}
                 onRefresh={() => this.onRefresh()}
