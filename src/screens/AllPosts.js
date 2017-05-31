@@ -4,6 +4,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getItems } from '../actions';
 import { ItemList } from '../components';
+import { persistStore } from 'redux-persist';
+import { AsyncStorage } from 'react-native';
+import store from '../store';
 
 class AllPosts extends Component {
     constructor(props) {
@@ -24,6 +27,7 @@ class AllPosts extends Component {
     }
 
     onRefresh() {
+        persistStore(store, { storage: AsyncStorage }).purge();
         this.props.dispatch(getItems(1));
     }
 

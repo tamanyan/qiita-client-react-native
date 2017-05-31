@@ -1,7 +1,6 @@
 'use strict';
 
 import * as types from '../types';
-import * as constants from '../constants';
 import User from '../models/User';
 import LoadingItem from '../models/LoadingItem';
 import Item from '../models/Item';

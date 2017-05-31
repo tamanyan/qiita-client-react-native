@@ -6,7 +6,7 @@ import User from '../models/User';
 import Item from '../models/Item';
 import { REHYDRATE } from 'redux-persist/constants'
 
-export default(state = {token: "", authedUser: undefined, items: [], isLoading: false}, action) => {
+export default(state = {token: "", authedUser: undefined, items: [], isLoading: false, isFetchingToken: false}, action) => {
     switch (action.type) {
         case REHYDRATE:
             if ('user' in action.payload && action.payload.user != null &&
@@ -16,6 +16,7 @@ export default(state = {token: "", authedUser: undefined, items: [], isLoading: 
                     authedUser: new User(user.authedUser),
                     items: user.items.map(i => new Item(i)),
                     token: user.token,
+                    isFetchingToken: false,
                     isLoading: false
                 };
             } else {
@@ -24,14 +25,14 @@ export default(state = {token: "", authedUser: undefined, items: [], isLoading: 
         case types.GET_ACCESS_TOKEN:
             return {
                 ...state,
-                isLoading: true
+                isFetchingToken: true
             };
         case types.GET_ACCESS_TOKEN_SUCCESSE:
             return {
                 ...state,
                 token: action.payload.token,
                 authedUser: action.payload.authedUser,
-                isLoading: false
+                isFetchingToken: false
             };
         case types.GET_USER_ITEMS:
             return {

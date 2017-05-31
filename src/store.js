@@ -6,6 +6,7 @@ import { AsyncStorage } from 'react-native';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import reducers from './reducers';
 import thunk from 'redux-thunk';
+import createExpirationTransform from 'redux-persist-transform-expire';
 
 const configureStore = () => {
     if (__DEV__) {
@@ -26,6 +27,11 @@ const configureStore = () => {
 }
 
 const store = configureStore();
-persistStore(store, {storage: AsyncStorage});
+const expireTransform = createExpirationTransform();
+
+persistStore(store, {
+    storage: AsyncStorage,
+    transforms: [expireTransform]
+});
 
 export default store;

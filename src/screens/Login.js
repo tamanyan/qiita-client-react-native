@@ -6,10 +6,10 @@ import {
     Text,
     View
 } from 'react-native';
+import Spinner from 'react-native-loading-spinner-overlay';
 import { connect } from 'react-redux';
 import urlParse from 'url-parse';
 import uuid from 'react-native-uuid';
-import * as constants from '../constants';
 import { authenticate } from '../actions';
 import Config from 'react-native-config'
 
@@ -78,18 +78,24 @@ class Login extends Component {
         const url = `https://qiita.com/api/v2/oauth/authorize?client_id=${Config.CLIENT_ID}&scope=read_qiita+write_qiita_team&state=${state}`;
 
         return (
-            <WebView
-                source={{uri: url}}
-                onShouldStartLoadWithRequest={(event) => this.onShouldStartLoadWithRequest(event)}
-                style={{}}
-            />
+            <View style={{ flex: 1 }}>
+                <WebView
+                    source={{uri: url}}
+                    onShouldStartLoadWithRequest={(event) => this.onShouldStartLoadWithRequest(event)}
+                    style={{}}
+                />
+                <Spinner
+                    visible={this.props.isSpinnerVisible}
+                />
+            </View>
         );
-  }
+    }
 }
 
 const mapStateToProps = (state) => {
     return {
-        user: state.user.authedUser
+        user: state.user.authedUser,
+        isSpinnerVisible: state.user.isFetchingToken
     };
 }
 

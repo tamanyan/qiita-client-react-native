@@ -31,8 +31,17 @@ export const getItems = (page) => {
                     dispatch(action(types.GET_ITEMS_SUCCESSE, payload));
                 }, 2000);
             } else {
+                const token = getState().user.token;
                 let queryString = encodeParams({page: page, per_page: 30});
-                const response = await fetch('https://qiita.com/api/v2/items?' + queryString);
+                const response = await fetch('https://qiita.com/api/v2/items?' + queryString, {
+                    method: 'GET',
+                    headers: token.length > 0 ? {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    } : {
+                        'Content-Type': 'application/json',
+                    }
+                });
                 const responseJson = await response.json();
                 const payload = {
                     items: responseJson.map(item => new Item(item)).concat([new LoadingItem()]),
