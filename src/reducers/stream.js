@@ -5,7 +5,7 @@ import Item from '../models/Item';
 import LoadingItem from '../models/LoadingItem';
 import { REHYDRATE } from 'redux-persist/constants'
 
-export default(state = {page: 0, items: []}, action) => {
+export default(state = {page: 0, prevPage: 0, items: [], isLoading: false}, action) => {
     switch (action.type) {
         case REHYDRATE:
             if ('stream' in action.payload && action.payload.stream != null) {
@@ -17,24 +17,35 @@ export default(state = {page: 0, items: []}, action) => {
                             return new Item(item);
                         }
                     }),
-                    page: action.payload.stream.page
+                    page: action.payload.stream.page,
+                    prevPage: action.payload.stream.prevPage,
+                    isLoading: false
                 };
             } else {
                 return state;
             }
         case types.GET_ITEMS:
-            return state;
+            return {
+                ...state,
+                prevPage: state.page,
+                page: action.payload.page,
+                isLoading: true
+            };
         case types.GET_ITEMS_SUCCESSE:
-            if (state.page < action.payload.page) {
+            if (state.prevPage < action.payload.page) {
                 const prevItems = state.items.filter(i => i instanceof Item)
                 return {
                     page: action.payload.page,
-                    items: prevItems.concat(action.payload.items)
+                    prevPage: state.prevPage,
+                    items: prevItems.concat(action.payload.items),
+                    isLoading: false
                 };
             } else {
                 return {
                     page: action.payload.page,
-                    items: action.payload.items
+                    prevPage: state.prevPage,
+                    items: action.payload.items,
+                    isLoading: false
                 };
             }
         default:

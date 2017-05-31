@@ -36,6 +36,7 @@ class AllPosts extends Component {
             <ItemList
                 items={this.props.items}
                 page={this.props.page}
+                isRefreshing={this.props.isLoading && this.props.page <= 1}
                 onRefresh={() => this.onRefresh()}
                 onItemDidSelect={(index, item) => this.onItemDidSelect(index, item)}
                 onEndReached={(nextPage) => this.onEndReached(nextPage)}
@@ -48,6 +49,7 @@ const mapStateToProps = (state) => {
     return {
         items: state.stream.items,
         page: state.stream.page,
+        isLoading: state.stream.isLoading,
     };
 }
 

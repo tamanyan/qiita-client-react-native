@@ -33,15 +33,12 @@ export class ItemList extends Component {
     }
 
     static propTypes = {
+        isRefreshing: PropTypes.bool.isRequired,
         items: PropTypes.array.isRequired,
         page: PropTypes.number.isRequired,
         onItemDidSelect: PropTypes.func,
         onRefresh: PropTypes.func,
         onEndReached: PropTypes.func,
-    }
-
-    state = {
-        refreshing: false
     }
 
     constructor(props) {
@@ -68,16 +65,12 @@ export class ItemList extends Component {
         );
     }
 
-    onRefresh() {
-        this.setState({refreshing: true});
-    }
-
     render() {
         return (
             <FlatList
                 refreshControl={
                     <RefreshControl
-                        refreshing={this.state.refreshing}
+                        refreshing={this.props.isRefreshing}
                         onRefresh={() => this.props.onRefresh()}
                     />
                 }
