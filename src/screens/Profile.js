@@ -34,9 +34,6 @@ class Profile extends Component {
                     animationType: 'slide-up'
                 });
             }
-            if (this.props.user != undefined && this.props.items.length == 0) {
-                this.props.dispatch(getAuthedUserItems());
-            }
         }
     }
 

@@ -1,22 +1,16 @@
 'use strict';
 
 import { applyMiddleware, createStore, compose } from 'redux';
-import { createLogger } from 'redux-logger';
 import { persistStore, autoRehydrate } from 'redux-persist';
 import { AsyncStorage } from 'react-native';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import reducers from './reducers';
 import thunk from 'redux-thunk';
 
-const logger = createLogger({
-    collapsed: true,
-    duration: true,
-    predicate: (getState, action) => __DEV__
-});
-
 const configureStore = () => {
     if (__DEV__) {
-        const enhancer = compose(
-            applyMiddleware(thunk, logger),
+        const enhancer = composeWithDevTools(
+            applyMiddleware(thunk),
             autoRehydrate()
         );
         const store = createStore(reducers, enhancer);
@@ -32,6 +26,6 @@ const configureStore = () => {
 }
 
 const store = configureStore();
-persistStore(store, {storage: AsyncStorage});
+persistStore(store, {storage: AsyncStorage}).purge();
 
 export default store;

@@ -50,7 +50,6 @@ class Login extends Component {
     }
 
     onShouldStartLoadWithRequest(event) {
-        // Implement any custom loading logic here, don't forget to return!
         const parsedUrl = urlParse(event.url, true);
 
         if (parsedUrl.host == 'qiita.com' && parsedUrl.query.code != undefined && parsedUrl.query.state != undefined) {

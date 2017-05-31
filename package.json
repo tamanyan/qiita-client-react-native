@@ -15,7 +15,7 @@
     "react-native-uuid": "^1.4.9",
     "react-redux": "5.0.4",
     "redux": "3.6.0",
-    "redux-logger": "3.0.1",
+    "redux-devtools-extension": "^2.13.2",
     "redux-thunk": "2.2.0",
     "url-parse": "^1.1.9"
   },
