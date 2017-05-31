@@ -3,8 +3,8 @@
 import * as types from '../types';
 import Item from '../models/Item';
 import LoadingItem from '../models/LoadingItem';
-import itemData from '../mocks/items.json';
 import { encodeParams } from '../utils';
+import Config from 'react-native-config'
 
 const action = (type, payload=null, error=null) => (
     {type, payload, error}
@@ -19,7 +19,9 @@ export const getItems = (page) => {
 
             dispatch(action(types.GET_ITEMS, {page: page}));
 
-            if (false) {
+            if (Config.USE_MOCK == 1) {
+                const itemData = require('../mocks/items.json');
+
                 const payload = {
                     items: itemData.map(item => new Item(item)).concat([new LoadingItem()]),
                     page: page
@@ -27,7 +29,7 @@ export const getItems = (page) => {
 
                 setTimeout(() => {
                     dispatch(action(types.GET_ITEMS_SUCCESSE, payload));
-                }, 3000);
+                }, 2000);
             } else {
                 let queryString = encodeParams({page: page, per_page: 30});
                 const response = await fetch('https://qiita.com/api/v2/items?' + queryString);

@@ -1,3 +1,5 @@
+'use strict';
+
 import { Navigation } from 'react-native-navigation';
 
 import AllPosts from './AllPosts';

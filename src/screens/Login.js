@@ -11,6 +11,7 @@ import urlParse from 'url-parse';
 import uuid from 'react-native-uuid';
 import * as constants from '../constants';
 import { authenticate } from '../actions';
+import Config from 'react-native-config'
 
 class Login extends Component {
     static navigatorStyle = {
@@ -74,7 +75,7 @@ class Login extends Component {
         }
 
         const state = uuid.v4();
-        const url = `https://qiita.com/api/v2/oauth/authorize?client_id=${constants.CLIENT_ID}&scope=read_qiita+write_qiita_team&state=${state}`;
+        const url = `https://qiita.com/api/v2/oauth/authorize?client_id=${Config.CLIENT_ID}&scope=read_qiita+write_qiita_team&state=${state}`;
 
         return (
             <WebView

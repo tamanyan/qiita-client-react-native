@@ -59,3 +59,5 @@ fastlane/screenshots
 .idea/
 
 *.jsbundle
+
+.env

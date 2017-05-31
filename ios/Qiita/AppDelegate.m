@@ -12,6 +12,7 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import "RCCManager.h"
+#import "ReactNativeConfig/ReactNativeConfig.h"
 
 @implementation UIColor (Hex)
 + (id)colorWithHexString:(NSString *)hex alpha:(CGFloat)a {
