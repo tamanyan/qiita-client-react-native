@@ -7,6 +7,7 @@ import {
     Text,
     View,
     ScrollView,
+    TouchableWithoutFeedback,
     TouchableHighlight
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -15,6 +16,8 @@ import Item from '../models/Item';
 import { getAuthedUserItems } from '../actions';
 import { UserProfile } from '../components';
 import { ItemCell } from '../components';
+import { AsyncStorage } from 'react-native';
+import { store, storageStore } from '../store';
 
 class Profile extends Component {
     constructor(props) {
@@ -46,6 +49,11 @@ class Profile extends Component {
         })
     }
 
+    deleteCache() {
+        storageStore.purge(["user"]);
+        console.log("delete cache");
+    }
+
     render() {
         if (this.props.user == undefined) {
             return (
@@ -59,7 +67,11 @@ class Profile extends Component {
 
             return (
                 <ScrollView>
-                    <UserProfile user={this.props.user} />
+                    <TouchableWithoutFeedback onLongPress={() => this.deleteCache()}>
+                        <View>
+                            <UserProfile user={this.props.user} />
+                        </View>
+                    </TouchableWithoutFeedback>
                     {items.map((item, index) => {
                         return (
                             <TouchableHighlight key={`user_touchable_${index}`} onPress={() => this.onItemDidSelect(index, item)}>

@@ -26,12 +26,10 @@ const configureStore = () => {
     }
 }
 
-const store = configureStore();
 const expireTransform = createExpirationTransform();
-
-persistStore(store, {
+export const store = configureStore();
+export const storageStore = persistStore(store, {
     storage: AsyncStorage,
     transforms: [expireTransform]
 });
 
-export default store;

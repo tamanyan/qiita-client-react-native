@@ -3,7 +3,7 @@
 import { Navigation } from 'react-native-navigation';
 import { Provider } from 'react-redux';
 import { QIITA_COLOR } from './appearance';
-import store from './store';
+import { store } from './store';
 import registerScreens from './screens';
 registerScreens(store, Provider);
 
